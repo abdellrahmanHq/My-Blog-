@@ -4,7 +4,7 @@ class BlogPostsController < ApplicationController
     before_action :set_blog_post ,only: [:show,:edit,:update,:destroy]#or except[:index,:new,:create]
 
     def index
-        @blog_posts=BlogPost.all
+        @blog_posts=user_signed_in? ? BlogPost.sorted : BlogPost.published.sorted
     end
     
     def show
@@ -13,9 +13,10 @@ class BlogPostsController < ApplicationController
     def new
         @blog_post=BlogPost.new
     end
+    
 
     def create
-        @blog_post=BlogPost.new(blog_post_params)
+        @blog_post = BlogPost.new(blog_post_params)
         if  @blog_post.save
             redirect_to @blog_post
         else
@@ -40,12 +41,13 @@ class BlogPostsController < ApplicationController
      end
 
     private
+    
     def blog_post_params
-        params.require(:blog_post).permit(:title,:body)
+        params.require(:blog_post).permit(:title,:body,:published_At)
     end
 
     def set_blog_post
-        @blog_post=BlogPost.find(params[:id])
+        @blog_post = user_signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.find(params[:id])
         rescue ActiveRecord::RecordNotFound
              redirect_to root_path
     end
