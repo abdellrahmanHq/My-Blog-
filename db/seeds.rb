@@ -7,3 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+100.times do |i|
+    blog_post = BlogPost.where(title: "Blog Post #{i}").first_or_initialize
+    blog_post.update(content: "Hello world", published_at: Time.current)
+end
+

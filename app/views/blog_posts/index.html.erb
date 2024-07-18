@@ -1,7 +1,7 @@
 
 
 <% @blog_posts.each do |blog_post| %>
-    <div>
+    <div class="my-5">
         <h2><%= link_to  blog_post.title ,blog_post_path(blog_post.id) %></h2>
         <% if blog_post.draft? %>
             <div class="p-2 m-2 rounded bg-gray-100 text-gray-900">Draft</div>
@@ -12,3 +12,9 @@
     </div>
 
     <% end %>
+
+<% if @pagy.count > @pagy.limit %>
+  <div class="my-16">
+    <%== pagy_nav(@pagy) %>
+  </div>
+<%end%>
