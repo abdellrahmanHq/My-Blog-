@@ -22,6 +22,7 @@ class BlogPostsController < ApplicationController
     def create
         @blog_post = BlogPost.new(blog_post_params)
         if  @blog_post.save
+            flash[:notice]="qusay"
             redirect_to @blog_post
         else
             render :new ,status: :unprocessable_entity
@@ -47,7 +48,7 @@ class BlogPostsController < ApplicationController
     private
     
     def blog_post_params
-        params.require(:blog_post).permit(:title,:content,:published_At)
+        params.require(:blog_post).permit(:title,:content,:cover_image , :published_At)
     end
 
     def set_blog_post

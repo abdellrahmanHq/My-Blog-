@@ -17,8 +17,11 @@
 
   <body class="bg-white text-gray-800 font-serif max-w-3xl mx-auto p-6 leading-relaxed text-center  ">
 
-    <p class="notice"><%= notice %></p>
+    <p class="notice"><%= flash[:notice] %></p>
     <p class="alert"><%= alert %></p>
+    <%if flash.present?%>
+    <% debugger %>
+    <%end%>
     <% if user_signed_in? %>
         <%= link_to "Profile",edit_user_registration_path  %>
         <%= link_to "New post",new_blog_post_path %>
